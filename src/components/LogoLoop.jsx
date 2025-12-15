@@ -50,7 +50,7 @@ const LogoLoop = ({ items = [] }) => {
                     x: {
                         repeat: Infinity,
                         repeatType: "loop",
-                        duration: 30, // Slower for better visibility
+                        duration: 15, // Faster loop
                         ease: "linear",
                     },
                 }}

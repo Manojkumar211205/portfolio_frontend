@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Actual Backend URL (Ngrok)
+// const API_BASE_URL = 'https://portfolio-api-u2mx.onrender.com';
 const API_BASE_URL = 'https://portfolio-api-u2mx.onrender.com';
+
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -190,5 +192,59 @@ export const fetchAchievements = async () => {
     } catch (error) {
         console.warn("Using mock achievements data (Fetch failed)", error);
         return MOCK_ACHIEVEMENTS;
+    }
+};
+
+const MOCK_TIMELINE = [
+    {
+        _id: "69391a7ab838a345201b94f9",
+        eventTitle: "2nd event",
+        eventDate: "0043-03-22T00:00:00.000Z",
+        eventDescription: "done well",
+        eventImages: [],
+        eventImage: "https://res.cloudinary.com/deby7xmkp/image/upload/v1765358573/portfolio-images/btnkaulm7dbaa8febvaz.png",
+        eventLinks: null
+    },
+    {
+        _id: "69401e57268f7859f7f3889a",
+        eventTitle: "Health connnect",
+        eventDate: "2025-01-12T00:00:00.000Z",
+        eventDescription: "python",
+        eventImages: [
+            "https://res.cloudinary.com/deby7xmkp/image/upload/v1765809748/timeline/tbve0xkxymqbkv4mx6ys.jpg",
+            "https://res.cloudinary.com/deby7xmkp/image/upload/v1765809751/timeline/ju9yyeb72v6qd6t48nbk.png"
+        ],
+        eventLinks: "https://www.linkedin.com/posts/manoj-kumar-purushothaman_python-flask-restfulapi-activity-7284666740146388992-pGd2?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEci7ZoBiUPuLnyxGvFL6Cx3chWauGFJYjY"
+    }
+];
+
+export const fetchTimeline = async () => {
+    try {
+        const response = await api.get('/timeline');
+        const dataArray = response.data.data || [];
+
+        return dataArray.map(event => ({
+            id: event._id,
+            title: event.eventTitle,
+            date: event.eventDate,
+            description: event.eventDescription,
+            // Prioritize eventImages array, fall back to single eventImage wrapping in array if present
+            images: (event.eventImages && event.eventImages.length > 0)
+                ? event.eventImages
+                : (event.eventImage ? [event.eventImage] : []),
+            link: event.eventLinks
+        }));
+    } catch (error) {
+        console.warn("Using mock timeline data (Fetch failed)", error);
+        return MOCK_TIMELINE.map(event => ({
+            id: event._id,
+            title: event.eventTitle,
+            date: event.eventDate,
+            description: event.eventDescription,
+            images: (event.eventImages && event.eventImages.length > 0)
+                ? event.eventImages
+                : (event.eventImage ? [event.eventImage] : []),
+            link: event.eventLinks
+        }));
     }
 };

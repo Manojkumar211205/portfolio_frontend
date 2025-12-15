@@ -5,6 +5,7 @@ import Hero from './sections/Hero';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
 import Achievements from './sections/Achievements';
+import CareerTimeline from './sections/CareerTimeline';
 import Footer from './sections/Footer';
 import { fetchProfile } from './api';
 
@@ -43,6 +44,7 @@ function App() {
         <Skills skills={profile?.skills} />
         <Projects />
         <Achievements />
+        <CareerTimeline />
       </main>
 
       <Footer socialMedia={profile?.socialMedia} />

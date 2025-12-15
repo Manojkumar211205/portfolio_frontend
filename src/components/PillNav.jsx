@@ -6,6 +6,7 @@ const sections = [
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'achievements', label: 'Achievements' },
+    { id: 'timeline', label: 'Timeline' },
 ];
 
 const PillNav = () => {
